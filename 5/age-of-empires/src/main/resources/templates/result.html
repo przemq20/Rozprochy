@@ -1,0 +1,179 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+        table {
+            width: 50%;
+            padding: 40px;
+            margin-left: auto;
+            margin-right: auto;
+            border-collapse: collapse;
+        }
+        h1 {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            width: 100%;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>AOE2 Battle simulator</title>
+</head>
+<body>
+<h1 style="align-content: center">RESULTS</h1>
+<table>
+    <tr>
+        <th></th>
+        <th th:text="${unit1.getName()}"></th>
+        <th th:text="${unit2.getName()}"></th>
+    </tr>
+    <tr>
+        <td></td>
+        <td th:text="${unit1.getDescription()}"></td>
+        <td th:text="${unit2.getDescription()}"></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Armor</td>
+        <td th:text="${unit1.getArmor()}"></td>
+        <td th:text="${unit2.getArmor()}"></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Attack</td>
+        <td th:text="${unit1.getAttack()}"></td>
+        <td th:text="${unit2.getAttack()}"></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Attack Bonus</td>
+        <td>
+            <p th:each="bonus : ${unit1.getAttack_bonus()}" th:text="${bonus}"></p>
+        </td>
+        <td>
+            <p th:each="bonus : ${unit2.getAttack_bonus()}" th:text="${bonus}"></p>
+        </td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Defence Bonus</td>
+        <td>
+            <p th:each="bonus : ${unit1.getArmor_bonus()}" th:text="${bonus}"></p>
+        </td>
+        <td>
+            <p th:each="bonus : ${unit2.getArmor_bonus()}" th:text="${bonus}"></p>
+        </td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Hit Points</td>
+        <td th:text="${unit1.getHit_points()}"></td>
+        <td th:text="${unit2.getHit_points()}"></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Accuracy</td>
+        <td th:text="${unit1.getAccuracy()}"></td>
+        <td th:text="${unit2.getAccuracy()}"></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Range</td>
+        <td th:text="${unit1.getRange()}"></td>
+        <td th:text="${unit2.getRange()}"></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Attack Delay</td>
+        <td th:text="${unit1.getAttack_delay()}"></td>
+        <td th:text="${unit2.getAttack_delay()}"></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Build Time</td>
+        <td th:text="${unit1.getBuild_time()}"></td>
+        <td th:text="${unit2.getBuild_time()}"></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Cost</td>
+        <td>
+            <p th:each="bonus : ${unit1.getCost()}" th:text="${bonus}"></p>
+        </td>
+        <td>
+            <p th:each="bonus : ${unit2.getCost()}" th:text="${bonus}"></p>
+        </td>
+    </tr>
+</table>
+<h2>Full cost:</h2>
+<table >
+    <tr>
+        <th></th>
+        <th th:text="${unit1.getName()}"></th>
+        <th th:text="${unit2.getName()}"></th>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Count</td>
+        <td th:text="${unit1Count}"></td>
+        <td th:text="${unit2Count}"></td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Full cost</td>
+        <td>
+            <p th:each="bonus : ${unit1Cost}" th:text="${bonus}"></p>
+        </td>
+        <td>
+            <p th:each="bonus : ${unit2Cost}" th:text="${bonus}"></p>
+        </td>
+    </tr>
+</table>
+<h1 th:text="'Battle between ' + ${unit1Count} +' '+ ${unit1.getName()}+ ' and ' + ${unit2Count} +' '+ ${unit2.getName()}+ ' will win army of ' +${won.getName()} + 's'"></h1>
+<span th:if="${!unit1Tech.isEmpty()}">
+			<h2 th:text="${unit1.getName()} +' Possible upgrades:'"></h2>
+			<table >
+				<tr>
+					<td>Name</td>
+					<td>Description</td>
+					<td>Discovery Time</td>
+					<td>Cost</td>
+				</tr>
+				<tr th:each="tech : ${unit1Tech}">
+					<td th:text="${tech.getName()}"></td>
+					<td th:text="${tech.getDescription()}"></td>
+					<td th:text="${tech.getBuild_time()}"></td>
+					<td>
+						<p th:each="cost : ${tech.getCost()}" th:text="${cost}"></p>
+					</td>
+				</tr>
+			</table>
+			<h4 th:text="'Cost of all upgrades for '+ ${unit1.getName()} +' is: '"></h4>
+			<span th:each="cost : ${unit1TechCost}">
+				<p th:text="${cost}"></p>
+			</span>
+		</span>
+<span th:if="${unit1Tech.isEmpty()}">
+			<h2 th:text="'There are no available upgrades for '+ ${unit1.getName()}"></h2>
+		</span>
+<span th:if="${!unit2Tech.isEmpty()}">
+			<h2 th:text="${unit2.getName()} +' Possible upgrades:'"></h2>
+			<table >
+				<tr>
+					<td>Name</td>
+					<td>Description</td>
+					<td>Discovery Time</td>
+					<td>Cost</td>
+				</tr>
+				<tr th:each="tech : ${unit2Tech}">
+					<td th:text="${tech.getName()}"></td>
+					<td th:text="${tech.getDescription()}"></td>
+					<td th:text="${tech.getBuild_time()}"></td>
+					<td>
+						<p th:each="cost : ${tech.getCost()}" th:text="${cost}"></p>
+					</td>
+				</tr>
+			</table>
+			<h4 th:text="'Cost of all upgrades for '+ ${unit2.getName()} +' is: '"></h4>
+			<span th:each="cost : ${unit2TechCost}">
+				<p th:text="${cost}"></p>
+			</span>
+		</span>
+<span th:if="${unit2Tech.isEmpty()}">
+			<h2 th:text="'There are no available upgrades for '+ ${unit2.getName()}"></h2>
+		</span>
+<br>
+<a href="/">Go to main page</a>
+</body>
+</html>

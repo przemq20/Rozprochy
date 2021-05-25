@@ -1,0 +1,49 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AOE2 Battle simulator</title>
+    <style>
+        body {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<h1>Age of Empires 2 Battle Simulator & cost calculator </h1>
+<form action="#" th:action="@{/}" th:object="${startPage}" method="post">
+    <h2>Choose Unit 1:</h2>
+    <label>
+        <select th:field="*{unit1Id}">
+            <option th:each="unit : ${units}"
+                    th:value="${unit.id}"
+                    th:utext="${unit.getName()}"></option>
+        </select>
+    </label>
+    <h2>Choose Unit 2:</h2>
+    <label>
+        <select th:field="*{unit2Id}">
+            <option th:each="unit : ${units}"
+                    th:value="${unit.id}"
+                    th:utext="${unit.getName()}"></option>
+        </select>
+    </label>
+    <h2>Choose unit 1 count:</h2>
+    <label>
+        <input type="number" th:field="*{unit1Count}">
+    </label>
+    <h2>Choose unit 2 count:</h2>
+    <label>
+        <input type="number" th:field="*{unit2Count}">
+    </label>
+    <p>
+        <input type="submit" value="Submit"/>
+        <input type="reset" value="Reset">
+    </p>
+</form>
+</body>
+
+</html>
