@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "wordCounter";
+option java_outer_classname = "WordCounter";
+
+package counter;
+
+message Words
+{
+  repeated string values = 1;
+}
+
+message Result {
+  string key   = 1;
+  int32  value = 2;
+}
+
+service WordCount {
+  rpc CountWord(Words) returns (stream Result) {}
+}

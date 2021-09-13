@@ -1,0 +1,2 @@
+coloredlogs~=15.0
+zeroc.ice~=3.7.5
